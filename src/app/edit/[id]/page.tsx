@@ -12,6 +12,7 @@ export type getFoodType = {
   data: {
     _id: string,
     name: string,
+    actualPrice: string,
     price: string,
     image: string,
     contentType:String,

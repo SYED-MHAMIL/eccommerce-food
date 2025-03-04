@@ -3,7 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import Navbar from "@/components/navbar";
-// import ProtectedRoutes from "@/HOC/protected";
+import CardConProvider from "@/context/caredcontext";
+import ProtectedRoutes from "@/HOC/protected";
+import Footer from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,12 +32,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >   
-        {/* <ProtectedRoutes > */}
-
+        <ProtectedRoutes >
+        <CardConProvider>
        <ToastContainer />
        <Navbar />
         {children}
-        {/* </ProtectedRoutes > */}
+        <Footer/>
+        </CardConProvider > 
+        
+        </ProtectedRoutes >
+
       </body>
     </html>
   );

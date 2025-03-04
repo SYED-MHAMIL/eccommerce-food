@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 const UpdateProduct = ({ data }: { data: getFoodType }) => {
   const [productName, setProductName] = useState("");
+    const [actualPrice, setActualPrice] = useState("0");   
   const [price, setPrice] = useState("");
   const [file, setFile] = useState<File | null | string>(null);
   const router = useRouter();
@@ -21,6 +22,7 @@ const UpdateProduct = ({ data }: { data: getFoodType }) => {
     if (mount && data?.data) {
       setProductName(data?.data?.name);
       setPrice(data?.data?.price);
+      setActualPrice(data?.data?.actualPrice);
       setFile(data?.data?.fileName);
     }
 
@@ -36,7 +38,7 @@ const UpdateProduct = ({ data }: { data: getFoodType }) => {
     formData.append("file", file as File); // Attach the file
     formData.append("name", productName); // Attach productName as 'name'
     formData.append("price", price); // Attach price
-  
+   formData.append("actualPrice", actualPrice); // Attach price
 
 
     axios
@@ -102,6 +104,25 @@ const UpdateProduct = ({ data }: { data: getFoodType }) => {
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="Type product price"
                   // required
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="price"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                 Actual Price
+                </label>
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  value={actualPrice}
+                  onChange={(e) => setActualPrice((e.target.value))}
+                  placeholder="Type product price"
+                  required
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                 />
               </div>

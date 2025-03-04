@@ -1,33 +1,23 @@
 "use client";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const AddProduct = () => {
   const [productName, setProductName] = useState("");
   const [message, setMessage] = useState("");
   const [price, setPrice] = useState("0");
+  const [actualPrice, setActualPrice] = useState("0");  
+
   const [file, setFile] = useState<File | null | string>(null);
   // const {name}=data?.data
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];
     setFile(file);
   };
+ const router= useRouter()
 
-  // useEffect(()=>{
-
-  //     let mount=true
-  // if (mount && data?.data) {
-
-  //   setProductName(data?.data?.name)
-  //   setPrice(data?.data?.price)
-  //   setImage(data?.data?.image)
-  // }
-
-  // return ()=>{
-  //   mount=false
-  // }
-
-  // },[])
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -40,20 +30,22 @@ const AddProduct = () => {
     formData.append("file", file); // Attach the file
     formData.append("name", productName); // Attach productName as 'name'
     formData.append("price", price); // Attach price
-  
+    formData.append("actualPrice", actualPrice); // Attach price
+
     try {
       const response = await axios.post("http://localhost:4000/food", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
       if (response.status === 200) {
-        setMessage("File uploaded successfully!");
+        toast.success("File uploaded successfully!");
+        router.push('/')
       }
     } catch (error) {
-      console.log(error);
+     toast.error("Error uploading file!");
     }
 
-    alert("Form Submitted!");
+
   };
 
   return (
@@ -100,6 +92,24 @@ const AddProduct = () => {
                   name="price"
                   value={price}
                   onChange={(e) => setPrice((e.target.value))}
+                  placeholder="Type product price"
+                  required
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                />
+              </div>   
+               <div>
+                <label
+                  htmlFor="price"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                 Actual Price
+                </label>
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  value={actualPrice}
+                  onChange={(e) => setActualPrice((e.target.value))}
                   placeholder="Type product price"
                   required
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "

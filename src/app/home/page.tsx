@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import Addtocards from '@/components/addtocards'
+import { Spin } from 'antd';
+
 
 
 const Home = () => {
@@ -30,13 +32,20 @@ const Home = () => {
     }, []);
 
   return (
+      
+    loading ? <div className="flex justify-center items-center h-screen">
+    <Spin size="large" />
+  </div>
+    :
+
+
     <div className='p-4 max-w-[1400px] mx-auto mt-16'>
 
-        {/* <div className='grid sm:grid-cols-2 gap-4'>
+        <div className='grid sm:grid-cols-2 gap-4'>
 
-            <img src={logo} className='rounded-2xl h-full object-cover' />
-            <img src={restaurant} className='rounded-2xl h-full object-cover' />
-        </div> */}
+            <img src={'/qdeli.png'} className='rounded-2xl h-full object-cover' />
+            <img src={"/restaurant1.png"} className='rounded-2xl h-full object-cover' />
+        </div>
 
         <div className='rounded-tr-lg rounded-bl-lg bg-gradient-to-l from-green-400 to-green-600 mt-8 h-[40px]
                         flex items-center justify-start my-8'>

@@ -4,37 +4,59 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
-
+import axios from 'axios'
+import {toast} from 'react-toastify'
+import BackendUrl from "../../utils/url";
+import { getCookie, setCookie } from 'cookies-next'
+import  {useRouter}  from 'next/navigation'
+import { useCardContext } from "../../context/caredcontext";
 export default function LoginPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router=useRouter()
+  const {addToken}=useCardContext()
 
-  const handleSubmit =async (e:React.FormEvent) => {
-    e.preventDefault();  
-    try {
-      const res=await axios.post('http://localhost:4000/auth/login', { email, password })
-      localStorage.setItem('fooduser',JSON.stringify(res.data.data._doc))
-       console.log(res.data);
-       
-    console.log("Logging in with:", { email, password });
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+try {
+      const result= await axios.post(`${BackendUrl}/auth/register`, {name, email, password })
     setEmail('')
     setPassword('') 
-    } catch (error) {
-      console.error(error)
-    }
+    setName('')   
+  toast.success('User Registered Successfully')
+  addToken(result.data.data.token)
+  localStorage.setItem('fooduser',JSON.stringify(result.data.data))
+  if(result.data.data.role === 'admin'){
+    router.push('/')
+
+  }else{
+    router.push('/home')
+  }
   
+
+} catch (error) {
+
+  toast.error('User Registration Failed')
+}
+    
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen">
       <Card className="w-full max-w-md shadow-md">
         <CardHeader>
-          <CardTitle className="text-center text-2xl">Login Page</CardTitle>
+          <CardTitle className="text-center text-2xl">Register Page</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-        
+          <Input
+              type="name"
+              placeholder="Enter The Name   "
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
              <Input
               type="email"
               placeholder="Email"
