@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import Link from 'next/link'
 import { toast } from 'react-toastify'
-
+import BaseUrl from '../../../utils/url'
 const Dashboard = () => {
 
     const [orders, setOrders] = useState([]);
@@ -13,7 +13,7 @@ const Dashboard = () => {
         setLoading(true);
 
         axios
-            .get('http://localhost:4000/order')
+            .get(`${BaseUrl.order}`)
             .then((response) => {
                 setOrders(response.data);
                 setLoading(false);

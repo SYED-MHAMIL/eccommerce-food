@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import UpdateProduct from "@/components/editcom";
-
+import BaseUrl from '@/utils/url'
 type ParamsType = {
   params: Promise<{ id: string }>;
 };
@@ -52,7 +52,7 @@ const Edit = ({ params }: ParamsType) => {
     if (id) {
       // Only fetch data when ID is available
       axios
-        .get(`http://localhost:4000/food/${id}`)
+        .get(`${BaseUrl.food}/${id}`)
         .then((response) => {
           setGetFoodOne(response.data); // Update the food data
           console.log(response.data);

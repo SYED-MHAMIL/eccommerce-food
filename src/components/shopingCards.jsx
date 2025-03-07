@@ -8,6 +8,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import BaseUrl from "@/utils/url";
 export const ShopingCards = () => {
   const { cardItem, addToCard, minusToCard, setCardItem,token } = useCardContext();
   const router = useRouter();
@@ -57,7 +58,7 @@ export const ShopingCards = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/stripe/create-checkout-session",
+        `${BaseUrl.stripe}`,
         {
           products: transformedItems,
         }
@@ -184,16 +185,7 @@ export const ShopingCards = () => {
                     })}
                   </ul>
                 </div>
-                {/* <div className="mt-6 border-t border-b py-2">
-            <div className="flex items-center justify-between">
-              <p className="text-sm text-gray-400">Subtotal</p>
-              <p className="text-lg font-semibold text-gray-900">$399.00</p>
-            </div>
-            <div className="flex items-center justify-between">
-              <p className="text-sm text-gray-400">Shipping</p>
-              <p className="text-lg font-semibold text-gray-900">$8.00</p>
-            </div>
-          </div> */}
+          
                 <div className="mt-6 flex items-center justify-between">
                   <p className="text-sm font-medium text-gray-900">Total</p>
                   <p className="text-2xl font-semibold text-gray-900">

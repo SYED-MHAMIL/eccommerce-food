@@ -20,7 +20,7 @@ export default function LoginPage() {
   const handleSubmit = async(e) => {
     e.preventDefault();
 try {
-      const result= await axios.post(`${BackendUrl}/auth/register`, {name, email, password })
+      const result= await axios.post(`${BackendUrl.register}`, {name, email, password })
     setEmail('')
     setPassword('') 
     setName('')   

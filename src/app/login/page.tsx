@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
+import BaseUrl from "@/utils/url";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ export default function LoginPage() {
   const handleSubmit =async (e:React.FormEvent) => {
     e.preventDefault();  
     try {
-      const res=await axios.post('http://localhost:4000/auth/login', { email, password })
+      const res=await axios.post(`${BaseUrl.login}`, { email, password })
       localStorage.setItem('fooduser',JSON.stringify(res.data.data._doc))
        console.log(res.data);
        

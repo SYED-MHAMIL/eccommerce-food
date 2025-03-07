@@ -5,6 +5,7 @@ import { getFoodType } from "@/app/edit/[id]/page";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import BaseUrl from "@/utils/url";
 
 const UpdateProduct = ({ data }: { data: getFoodType }) => {
   const [productName, setProductName] = useState("");
@@ -42,7 +43,7 @@ const UpdateProduct = ({ data }: { data: getFoodType }) => {
 
 
     axios
-      .put(`http://localhost:4000/food/${data?.data._id}`,formData,{
+      .put(`${BaseUrl.food}/${data?.data._id}`,formData,{
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((resolve) => {

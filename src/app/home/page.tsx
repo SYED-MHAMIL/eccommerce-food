@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import Addtocards from '@/components/addtocards'
 import { Spin } from 'antd';
+import BaseUrl from '@/utils/url';
 
 
 
@@ -14,7 +15,7 @@ const Home = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:4000/food')
+            .get(`${BaseUrl.food}`)
             .then((response) => {
                 const foods = response.data.data.map((item: any) => ({
                     ...item,

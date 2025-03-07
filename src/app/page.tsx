@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button, Result, Spin } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import BaseUrl from "@/utils/url";
 export type foodType = {
   _id: string;
   name: string;
@@ -55,7 +56,7 @@ export default function admin() {
   }, []);
 
   const deleteBtn = async (id: string) => {
-    await axios.delete(`http://localhost:4000/food/${id}`);
+    await axios.delete(`${BaseUrl.food}/${id}`);
     const data = food.filter((data) => data._id !== id);
     setFood(data);
   };

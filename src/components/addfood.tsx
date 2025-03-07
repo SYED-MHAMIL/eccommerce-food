@@ -1,4 +1,5 @@
 "use client";
+import BaseUrl from "@/utils/url";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -33,7 +34,7 @@ const AddProduct = () => {
     formData.append("actualPrice", actualPrice); // Attach price
 
     try {
-      const response = await axios.post("http://localhost:4000/food", formData, {
+      const response = await axios.post(`${BaseUrl}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
