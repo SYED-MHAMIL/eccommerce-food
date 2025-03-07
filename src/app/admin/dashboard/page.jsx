@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import Link from 'next/link'
+import { toast } from 'react-toastify'
 
 const Dashboard = () => {
 
@@ -18,15 +19,20 @@ const Dashboard = () => {
                 setLoading(false);
             })
             .catch((error) => {
-                console.log(error);
+                toast.error("Internet Error")
                 setLoading(false);
             })
     }, [])
 
   return (
-    <div className='px-4 py-8 max-w-7xl mx-auto bg-gray-50'>
-        {/* {loading && <Spinner/>} */}
-
+    <div className='px-4 py-8 max-w-7xl mx-auto '>
+     
+        <h1 className="mb-8 text-3xl text-center font-extrabold leading-none tracking-tight text-green-600 md:text-5xl lg:text-5xl">
+    Order{" "}
+    <span className="underline underline-offset-3 decoration-8 decoration-green-400 ">
+      Management
+    </span>
+  </h1>
         <div className='shadow overflow-x-auto'>
             <table className='w-full text-sm text-left text-gray-500'>
                 <thead className='text-xs text-gray-700 uppercase bg-gray-50'>
@@ -36,6 +42,7 @@ const Dashboard = () => {
                         <th scope="col" className='py-3 px-6'>Quantity</th>
                         <th scope="col" className='py-3 px-6'>Email</th>
                         <th scope="col" className='py-3 px-6'>Street</th>
+                        <th scope="col" className='py-3 px-6'>Action</th>
                     </tr>
                 </thead>
                 <tbody>

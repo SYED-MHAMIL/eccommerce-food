@@ -90,7 +90,7 @@ export const ShopingCards = () => {
       {cardItem.length > 0 ? (
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center">
-            <h1 className="text-2xl font-semibold text-gray-900">Your Cart</h1>
+            <h1 className="text-3xl font-semibold text-green-500">Your Carts</h1>
           </div>
           <div className="mx-auto mt-8 max-w-2xl md:mt-12">
             <div className="bg-white shadow">
@@ -206,7 +206,7 @@ export const ShopingCards = () => {
                 <div className="mt-6 text-center">
                   <button
                     type="button"
-                    className="group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
+                    className="group inline-flex w-full items-center justify-center rounded-md bg-gradient-to-l cursor-pointer from-green-400 to-green-600 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:opacity-95"
                     onClick={handleCheckOut}
                   >
                     Proceed to Checkout

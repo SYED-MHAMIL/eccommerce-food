@@ -4,7 +4,7 @@ const footer = () => {
   return (
     
 <footer
-  className="bg-white text-center text-surface/75lg:text-left sticky w-full mt-auto bottom-0">
+  className="bg-white text-center text-surface/75 lg:text-left fixed w-full md:mt-52  lg:mt-52 mt-64 -bottom-0">
 
 
 

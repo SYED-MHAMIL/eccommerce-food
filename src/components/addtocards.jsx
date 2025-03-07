@@ -7,7 +7,7 @@ const Addtocards = ({food}) => {
       return (
     <>
    
-      <div className="flex justify-center items-center w-full h-screen gap-1 mb-8 flex-wrap">
+      <div className="flex justify-center items-center w-full h-screen gap-1 lg:mb-8 md:mb-8 mb-24 pb-40 flex-wrap">
       {food?.length > 0 &&
           food.map(
             (product) => (

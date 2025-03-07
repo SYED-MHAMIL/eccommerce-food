@@ -39,7 +39,7 @@ const Home = () => {
     :
 
 
-    <div className='p-4 max-w-[1400px] mx-auto mt-16'>
+    <div className='lg:p-4 md:p-4 max-w-[1400px] mx-auto mt-16 lg:mb-12 md:mb-12 mb-28 pb-12'>
 
         <div className='grid sm:grid-cols-2 gap-4'>
 
@@ -53,6 +53,7 @@ const Home = () => {
         </div>
 
         <Addtocards food={food} />
+        <div className='lg:hidden md:hidden flex h-50 w-full'></div>
     </div>
   )
 }

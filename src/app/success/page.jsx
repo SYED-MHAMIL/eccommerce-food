@@ -54,7 +54,7 @@ useEffect(()=>{
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+    <div className="flex items-center justify-center min-h-screen p-4">
       <div className="max-w-4xl w-full bg-green-100 rounded-lg shadow-lg p-6 md:p-10">
         <h1 className="text-2xl md:text-3xl font-bold text-green-800 text-center">
           Payment Successful 🎉
