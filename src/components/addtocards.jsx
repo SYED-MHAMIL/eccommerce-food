@@ -1,22 +1,21 @@
-import React from 'react'
+import React from "react";
 
-import SingleCard from './singleCard';
-const Addtocards = ({food}) => {
-
-
-      return (
+import SingleCard from "./singleCard";
+const Addtocards = ({ food }) => {
+  return (
     <>
-   
-      <div className="flex justify-center items-center w-full h-screen gap-1 lg:mb-8 md:mb-8 mb-24 pb-40 flex-wrap">
-      {food?.length > 0 &&
-          food.map(
-            (product) => (
-              <SingleCard key={product._id} food={product}/>
-           )
-        )}
+      <div className="mb-8 flex-wrap flex">
+        {food?.length > 0 &&
+          food.map((product, index) => (
+            <SingleCard
+              key={product._id}
+              food={product}
+              lastFood={true}
+            />
+          ))}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Addtocards
+export default Addtocards;

@@ -39,7 +39,7 @@ const Home = () => {
     :
 
 
-    <div className='lg:p-4 md:p-4 max-w-[1400px] mx-auto mt-16 lg:mb-12 md:mb-12 mb-28 pb-12'>
+    <div className='p-4 max-w-[1400px] mx-auto mt-16'>
 
         <div className='grid sm:grid-cols-2 gap-4'>
 
@@ -47,13 +47,11 @@ const Home = () => {
             <img src={"/restaurant1.png"} className='rounded-2xl h-full object-cover' />
         </div>
 
-        <div className='rounded-tr-lg rounded-bl-lg bg-gradient-to-l from-green-400 to-green-600 mt-8 h-[40px]
-                        flex items-center justify-start my-8'>
+        <div className='rounded-tr-lg rounded-bl-lg bg-gradient-to-l from-green-400 to-green-600 mt-8 h-[40px] flex items-center justify-start my-8'>
             <h1 className='text-2xl my-8 font-bold pl-8 text-white'>Lunch Specials</h1>
         </div>
 
-        <Addtocards food={food} />
-        <div className='lg:hidden md:hidden flex h-50 w-full'></div>
+       <Addtocards food={food} />
     </div>
   )
 }

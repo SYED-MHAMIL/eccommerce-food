@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useCardContext } from '../context/caredcontext';
 
 
-const SingleCard = ({food}) => {
+const SingleCard = ({food,lastFood}) => {
     
     const {addButtunToCard} =useCardContext()
   const [quantity,setQuantity]=useState([]);
@@ -39,11 +39,13 @@ const SingleCard = ({food}) => {
 
 useEffect(()=>{
     console.log(quantity.length > 0 && quantity.find(q => q.id === food._id)?.quantity,"quantity");
+      
+    console.log(lastFood, "last");
     
 },[quantity])
 
   return (
-<div className="relative m-10 flex w-full max-w-sm flex-wrap  mx-auto flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md transition-transform duration-300 hover:scale-105">
+<div className={`relative m-10 flex w-full max-w-sm flex-wrap  mx-auto flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md transition-transform duration-300 hover:scale-105 ${lastFood ? "mb-3" : ""} `}>
   <div
     className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
     href="#"
