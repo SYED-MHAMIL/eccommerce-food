@@ -64,7 +64,7 @@ export const ShopingCards = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:4000/stripe/create-checkout-session/`,
+        `${BaseUrl.stripe}`,
         {
           products: transformedItems,
         }
