@@ -1,13 +1,11 @@
 'use client'
 
-import { BsArrowRight } from "react-icons/bs";
-// framer
-import { motion } from "framer-motion";
+
 //varient
 // import { fadeIn } from "../.";
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { fadeIn } from "../../../varients";
+
 
 const Contact = () => {
   const formRef = useRef();

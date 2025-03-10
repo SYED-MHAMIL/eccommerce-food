@@ -5,21 +5,21 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button, Result, Spin } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import BaseUrl from "@/utils/url";
 export type foodType = {
   _id: string;
   name: string;
   price: number;
   image: string;
-  contentType: String;
-  fileData: string;
+  contentType: string;
+  fileData:{data : string};
   __v: number;
 };
 
 
 
-export default function admin() {
+export default function Admin() {
   const [food, setFood] = useState<foodType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -28,11 +28,11 @@ export default function admin() {
     setLoading(true);
     let isMounted = true;
     axios
-      .get("http://localhost:4000/food")
+      .get(`${BaseUrl.food}`)
       .then((response) => {
         console.log(response);
         if (isMounted) {
-          const foods = response.data.data.map((item: any) => ({
+          const foods = response.data.data.map((item: foodType) => ({
             ...item,
             fileData: Buffer.from(item.fileData.data).toString("base64"), // Convert Buffer to base64
           }));

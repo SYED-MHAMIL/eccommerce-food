@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import UpdateProduct from "@/components/editcom";
+import { toast } from "react-toastify";
 import BaseUrl from '@/utils/url'
 type ParamsType = {
   params: Promise<{ id: string }>;
@@ -15,7 +16,7 @@ export type getFoodType = {
     actualPrice: string,
     price: string,
     image: string,
-    contentType:String,
+    contentType:string,
     fileData:string,
     fileName:string,
     __v: number;
@@ -57,9 +58,13 @@ const Edit = ({ params }: ParamsType) => {
           setGetFoodOne(response.data); // Update the food data
           console.log(response.data);
         })
-        .catch((error) => {
-          console.error("Error fetching food data:", error);
-        });
+        .catch((e) => {
+          if (axios.isAxiosError(e)) {
+            toast.error(e.response?.data?.message || "error");
+          } else {
+            toast.error("An unexpected error occurred");
+          }
+        })
     }
   }, [id]); // Run this effect whenever `id` changes
 

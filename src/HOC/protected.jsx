@@ -1,69 +1,24 @@
-// "use client";
-
-// import { useRouter } from "next/navigation";
-// import { ReactNode, useEffect } from "react";
-// // import { json } from "stream/consumers";
-
-// // type ProtectedRoutesTypes = {
-// //   children: ReactNode;
-// // };
-
-// export default function ProtectedRoutes({ children }) {
-//     const router = useRouter();
-
-
-//   useEffect(() => {
-     
-//       const user = localStorage.getItem("fooduser");
-//        const json = JSON.parse(user);
-//        console.log("json",json);
-
-      
-//     if (json?.role === "user") {
-//       router.push("/home"); // Redirect user to login page
-//     }else if(json?.role === "admin"){
-//         router.push("/"); // Redirect admin to admin login page
-//     }else{
-//         router.push("/home"); // Redirect user to login page
-//     }
-//   }, []);
-
-//   return <>{children}</>;
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
-import { ReactNode, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function ProtectedRoutes({ children }) {
     const router = useRouter();
     const pathname = usePathname(); // Current route ka pata karne ke liye
+    const [isClient, setIsClient] = useState(false);
 
     // Ye pages public hain, jo guest (bina login) bhi dekh sakta hai
     const publicRoutes = [ "/home", "/login", "/register",];
 
     useEffect(() => {
+        setIsClient(true);
+      }, []);
+
+    useEffect(() => {
+        if (isClient) {
+
         const user = localStorage.getItem("fooduser");
         const json = user ? JSON.parse(user) : null; // Handle null case
        
@@ -80,7 +35,14 @@ export default function ProtectedRoutes({ children }) {
             // Agar user "admin" pages par jaye to usko home bhejo
             router.push("/home");
         }
-    }, [pathname]);
+    }
+    }, [pathname,isClient]);
+
+    if (!isClient) {
+        return null;
+      }
+    
+
 
     return <>{children}</>;
 }

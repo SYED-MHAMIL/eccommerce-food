@@ -2,7 +2,7 @@
 import BaseUrl from "@/utils/url";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const AddProduct = () => {
@@ -13,14 +13,18 @@ const AddProduct = () => {
 
   const [file, setFile] = useState<File | null | string>(null);
   // const {name}=data?.data
-  const handleImageChange = (e: any) => {
-    const file = e.target.files[0];
-    setFile(file);
+  const handleImageChange = (e:React.ChangeEvent<HTMLInputElement>) => {      
+       const files = e.target.files;
+       if (files && files.length > 0) {
+         const file = files[0];
+         setFile(file);
+       }
+     
   };
  const router= useRouter()
 
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!file || !productName || !price) {
       setMessage("All Field are Required");
@@ -42,10 +46,15 @@ const AddProduct = () => {
         toast.success("File uploaded successfully!");
         router.push('/')
       }
-    } catch (error) {
-     toast.error("Error uploading file!");
-    }
+    } catch (e:unknown) {
+    
+        if (axios.isAxiosError(e)) {
+          toast.error(e.message   || "error");
+        } else {
+          toast.error("An unexpected error occurred");
 
+    }
+  }
 
   };
 

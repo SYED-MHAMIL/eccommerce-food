@@ -12,10 +12,16 @@ import BaseUrl from "@/utils/url";
 export const ShopingCards = () => {
   const { cardItem, addToCard, minusToCard, setCardItem,token } = useCardContext();
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const total = useMemo(() => {
     return (
-      cardItem.length > 0 &&
+      cardItem?.length > 0 &&
       cardItem.reduce((acc, item) => acc + item.price * item.quantity, 0)
     );
   }, [cardItem]);
@@ -50,7 +56,7 @@ export const ShopingCards = () => {
       return;
     }
 
-    const transformedItems = cardItem.map((item) => ({
+    const transformedItems = cardItem?.map((item) => ({
       name: item.name,
       price: item.price,
       quantity: item.quantity,
@@ -58,7 +64,7 @@ export const ShopingCards = () => {
 
     try {
       const response = await axios.post(
-        `${BaseUrl.stripe}`,
+        `http://localhost:4000/stripe/create-checkout-session/`,
         {
           products: transformedItems,
         }
@@ -68,8 +74,9 @@ export const ShopingCards = () => {
         await stripe.redirectToCheckout({
           sessionId: response.data.id,
         });
-
-        localStorage.removeItem("cardItem");
+        if (isClient) {
+          localStorage.removeItem("cardItem");
+        }
       } else {
         throw new Error("Session ID missing in response");
       }
@@ -79,16 +86,18 @@ export const ShopingCards = () => {
   };
 
   const cancleFood = (id) => {
-    const cancle = cardItem.filter((data) => data._id !== id);
-    // localStorage.setItem("cardItem", JSON.stringify(cancle));
+    const cancle = cardItem?.filter((data) => data._id !== id);
+   
     setCardItem(cancle);
   };
 
-
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <section className="h-screen bg-white py-12 sm:py-16 lg:py-20 ">
-      {cardItem.length > 0 ? (
+      {cardItem?.length > 0 ? (
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center">
             <h1 className="text-3xl font-semibold text-green-500">Your Carts</h1>
@@ -98,7 +107,7 @@ export const ShopingCards = () => {
               <div className="px-4 py-6 sm:px-8 sm:py-10">
                 <div className="flow-root">
                   <ul className="-my-8">
-                    {cardItem.map((food) => {
+                    {cardItem?.map((food) => {
                       return (
                         <li
                           key={food._id}

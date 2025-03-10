@@ -13,9 +13,12 @@ const UpdateProduct = ({ data }: { data: getFoodType }) => {
   const [price, setPrice] = useState("");
   const [file, setFile] = useState<File | null | string>(null);
   const router = useRouter();
-  const handleImageChange = (e: any) => {
-    const file = e.target.files[0];
-    setFile(file);
+  const handleImageChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const file=e.target.files 
+    if(file && file.length > 0 ){
+      setFile(file[0]);
+    }
+   
   };
 
   useEffect(() => {
@@ -32,7 +35,7 @@ const UpdateProduct = ({ data }: { data: getFoodType }) => {
     };
   }, [data]);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
    
     const formData = new FormData();

@@ -10,7 +10,11 @@ const SingleCard = ({food,lastFood}) => {
     const {addButtunToCard} =useCardContext()
   const [quantity,setQuantity]=useState([]);
   const quant=quantity.length > 0 && quantity.find(q => q.id === food._id)?.quantity
-       
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const addCard = (id) => {
     setQuantity(prev => {
       const exists = prev?.find(data => data.id === id);
@@ -43,6 +47,10 @@ useEffect(()=>{
     console.log(lastFood, "last");
     
 },[quantity])
+
+if (!isClient) {
+  return null;
+}
 
   return (
 <div className={`relative m-10 flex w-full max-w-sm flex-wrap  mx-auto flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md transition-transform duration-300 hover:scale-105 ${lastFood ? "mb-3" : ""} `}>

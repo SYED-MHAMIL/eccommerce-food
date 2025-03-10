@@ -26,7 +26,9 @@ try {
     setName('')   
   toast.success('User Registered Successfully')
   addToken(result.data.data.token)
+  if (typeof window !== 'undefined') {
   localStorage.setItem('fooduser',JSON.stringify(result.data.data))
+  }
   if(result.data.data.role === 'admin'){
     router.push('/')
 

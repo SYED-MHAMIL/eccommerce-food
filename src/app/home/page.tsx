@@ -4,12 +4,13 @@ import axios from "axios";
 import Addtocards from '@/components/addtocards'
 import { Spin } from 'antd';
 import BaseUrl from '@/utils/url';
-
+import { foodType } from '../page';
+import Image from 'next/image'
 
 
 const Home = () => {
 
-    const [food, setFood] = useState([]);
+    const [food, setFood] = useState<foodType[]>([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -17,7 +18,7 @@ const Home = () => {
         axios
             .get(`${BaseUrl.food}`)
             .then((response) => {
-                const foods = response.data.data.map((item: any) => ({
+                const foods = response.data.data.map((item:foodType) => ({
                     ...item,
                     fileData: Buffer.from(item.fileData.data).toString("base64"), // Convert Buffer to base64
                   }));
@@ -44,8 +45,8 @@ const Home = () => {
 
         <div className='grid sm:grid-cols-2 gap-4'>
 
-            <img src={'/qdeli.png'} className='rounded-2xl h-full object-cover' />
-            <img src={"/restaurant1.png"} className='rounded-2xl h-full object-cover' />
+            <Image src={'/qdeli.png'} height={700} width={700} alt='queliere' className='rounded-2xl h-[100%] object-cover'  />
+            <Image src={"/restaurant1.png"}  height={700} width={700}   alt='resurant2' className='rounded-2xl h-[100%] object-cover' />
         </div>
 
         <div className='rounded-tr-lg rounded-bl-lg bg-gradient-to-l from-green-400 to-green-600 mt-8 h-[40px] flex items-center justify-start my-8'>

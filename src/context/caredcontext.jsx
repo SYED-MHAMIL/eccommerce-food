@@ -1,27 +1,50 @@
  "use client"
-import { foodType } from "@/app/page";
 import { createContext, useContext, useEffect, useState } from "react";
 const CardContext = createContext();
 
 export default function CardConProvider({
-  children,
+  children
 }) {
   
   
   const [cardItem, setCardItem] = useState(() => {
-    const data = localStorage.getItem("cardItem");
-   return data  ? JSON.parse(data ) : []
+    if (typeof window !== "undefined") {
+      const data = localStorage.getItem("cardItem");
+      try {
+        return data ? JSON.parse(data) : [];
+      } catch (error) {
+        console.error("Error parsing cardItem from localStorage:", error);
+        return [];
+      }}
   });
      
 
-  const [token, setToken] = useState(() => {
-    const data = localStorage.getItem("tokenno");
-   return data  ? JSON.parse(data ) : null
+  const [token, setToken] = useState(() => {if (typeof window !== "undefined") {
+    if (typeof window !== "undefined") {
+      const data = localStorage.getItem("tokenno");
+      try {
+        return data ? JSON.parse(data) : [];
+      } catch (error) {
+        console.error("Error parsing cardItem from localStorage:", error);
+        return [];
+      }
+    }
+  }
+  
   });
 
+
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
     localStorage.setItem("tokenno", JSON.stringify(token));
-  }, [token]);
+    }
+  }, [token,isClient]);
 
  const addToken=(token)=>{
    setToken(token)
@@ -30,8 +53,10 @@ export default function CardConProvider({
 
 
   useEffect(() => {
-    localStorage.setItem("cardItem", JSON.stringify(cardItem));
-  }, [cardItem]);
+    if (isClient) {
+      localStorage.setItem("cardItem", JSON.stringify(cardItem));
+    }
+  }, [cardItem, isClient]);
 
     
 const addButtunToCard=(item,quan)=>{
@@ -67,7 +92,7 @@ const addButtunToCard=(item,quan)=>{
        setCardItem((prev)=>{
            const cardInItem= prev.find( data=> data._id  === item._id)        
            if(cardInItem) {
-               return prev.map(prevone=>prevone._id === item._id ? {...prevone , quantity: prevone.quantity -1} : prevone)
+               return prev.map(prevone=>prevone._id === item._id ? {...prevone , quantity: prevone.quantity -1} : prevone).filter((item) => item.quantity > 0)
            } else{
              return;
            }        

@@ -1,10 +1,10 @@
 "use client"
 import axios from 'axios'
 import { useSearchParams } from 'next/navigation'
-import React, {useState, useEffect, use } from 'react'
+import React, {useState, useEffect } from 'react'
 import Link from 'next/link'
 import {useCardContext} from "../../context/caredcontext"
-
+import BaseUrl from '@/utils/url'
 const Success = () => {
    
   const [orderDetails, setOrderDetails] = useState(null);
@@ -15,7 +15,7 @@ const placeOrderToDatabse= async(postData)=>{
      
 
   try {
-  let response=await axios.post('http://localhost:4000/order',postData)
+  let response=await axios.post(`${BaseUrl.order}`,postData)
     console.log("Order saved in to Database ",response);
 
   } catch (error) {
@@ -31,12 +31,14 @@ useEffect(()=>{
   const FetchSessionDetail=async()=>{
 
     try {
-      const  response=await axios.get(`http://localhost:4000/stripe/api/session/${session_id}`)
+      const  response=await axios.get(`${BaseUrl.ordersData}/${session_id}`)
         console.log(response);
         
         setOrderDetails(response.data)
       placeOrderToDatabse(response.data)
+      if (typeof window !== 'undefined') {
       localStorage.removeItem('cardItem')
+      }
       setCardItem([])
     } catch (error) { 
         console.log(error);   
