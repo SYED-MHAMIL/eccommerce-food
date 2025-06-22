@@ -121,7 +121,7 @@ export default function Admin() {
                         <div className="flex gap-2">
           <Link className="bg-blue-600 active:opacity-75 text-white px-2 py-1 rounded-md" href={`/edit/${item._id}`}>
            <div>  <EditOutlined /> Edit</div>
-            {/* <Button icon={<EditOutlined />} type="primary">Edit</Button> */}
+
           </Link>
           <Button icon={<DeleteOutlined />} type="default" danger onClick={() => deleteBtn(item._id)}>Delete</Button>
         </div>

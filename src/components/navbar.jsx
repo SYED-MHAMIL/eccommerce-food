@@ -135,9 +135,11 @@ function Navbar() {
         </li>
       </ul>
 
-      <Link href={'/login'} className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200">
+      {!token ? <Link href={'/login'} className={` ${ "block"} lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200`}>
       Sign In
-      </Link>
+      </Link> : <Link href={'/login'} className={` ${ "block"} lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-transparent hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200`}>
+      
+      </Link> }
      
   { token  ? <Link onClick={()=>{
         setIsOpen(false)
@@ -249,15 +251,15 @@ function Navbar() {
         </div>
         <div className="mt-auto">
           <div className="pt-6">
-            <Link
-              className="block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold  bg-gray-50 hover:bg-gray-100 rounded-xl"
+            {/* <Link
+              className={`${token ? "hidden" : "block"} px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold  bg-gray-50 hover:bg-gray-100 rounded-xl`}
               href="/login"
             >
                 <button onClick={()=>{setIsOpen(false)}}>
                 Sign in
                 </button>
             
-            </Link>
+            </Link> */}
 
             {token ? <Link
               className="block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-red-600 hover:bg-red-700  rounded-xl"

@@ -10,7 +10,7 @@ export default function ProtectedRoutes({ children }) {
     const [isClient, setIsClient] = useState(false);
 
     // Ye pages public hain, jo guest (bina login) bhi dekh sakta hai
-    const publicRoutes = [ "/home", "/login", "/register",];
+    const publicRoutes = [ "/home", "/login", "/register"];
 
     useEffect(() => {
         setIsClient(true);
